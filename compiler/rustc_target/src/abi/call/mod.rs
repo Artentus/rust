@@ -5,6 +5,7 @@ use rustc_span::Symbol;
 use std::fmt;
 use std::str::FromStr;
 
+mod a32;
 mod aarch64;
 mod amdgpu;
 mod arm;
@@ -721,6 +722,7 @@ impl<'a, Ty> FnAbi<'a, Ty> {
             }
             "asmjs" => wasm::compute_c_abi_info(cx, self),
             "bpf" => bpf::compute_abi_info(self),
+            "a32" => a32::compute_abi_info(cx, self),
             arch => {
                 return Err(AdjustForForeignAbiError::Unsupported {
                     arch: Symbol::intern(arch),
